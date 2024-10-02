@@ -1,0 +1,43 @@
+import sys
+sys.stdout.reconfigure(encoding='utf-8') 
+
+
+from bank_manager import BankManager
+
+
+manager = BankManager()
+
+''' Create Accounts '''
+
+print(manager.create_account("12345", "Alice"))
+print(manager.create_account("67890", "Bob"))
+
+
+''' Fetch account details for Alice '''
+
+alice_account = manager.get_account("12345")
+print(alice_account.account_details())  
+
+
+''' Deposit Money '''
+
+print(alice_account.deposit(1000))
+
+
+''' Check Balance '''
+
+print(alice_account.check_balance())
+
+
+''' Fetch account details again after deposit '''
+
+print(alice_account.account_details())  
+
+''' Transfer Money '''
+
+print(manager.transfer_amount("12345", "67890", 200))
+
+''' Fetch account details for Bob '''
+
+bob_account = manager.get_account("67890")
+print(bob_account.account_details())  
