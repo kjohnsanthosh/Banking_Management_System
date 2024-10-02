@@ -1,0 +1,51 @@
+'''
+
+components: bank_manager
+
+functionalities:
+        - creates bank account
+        - deletes a account
+        - transfering money to others
+
+'''
+
+from bank_account import BankAccount
+
+class BankManager:
+    def __init__(self):
+        ''' stores all the data '''
+
+        self.accounts = {}
+
+    def create_account(self, account_number: int, account_holder: str):
+        ''' It creates a account for a user '''
+
+        if account_number in self.accounts:
+            return "Account with this number already exists!"
+        else:
+            self.accounts[account_number] = BankAccount(account_number, account_holder)
+            return f"Account created for {account_holder} with account number {account_number}"
+
+    def delete_account(self, account_number: int):
+        ''' deletes a account '''
+
+        if account_number in self.accounts:
+            del self.accounts[account_number]
+            return f"Account {account_number} deleted successfully!"
+        else:
+            return "Account not found!"
+
+    def transfer_amount(self, sender_account: int, receiver_account: int, amount: int):
+        ''' transfers the money from one account to another account '''
+
+        if sender_account in self.accounts and receiver_account in self.accounts:
+            return self.accounts[sender_account].transfer(self.accounts[receiver_account], amount)
+        elif sender_account not in self.accounts:
+            return "Sender account not found!"
+        elif receiver_account not in self.accounts:
+            return "Receiver account not found!"
+    
+    def get_account(self, account_number):
+
+        return self.accounts.get(account_number, None)
+
